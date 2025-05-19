@@ -33,9 +33,6 @@ public class Address {
         return street + " " + streetNumber + "," + zip + " " + city + "," + country;
     }
 
-    public static void main(String[] args) {
-        var a = new Address("Dietzweg", "4b", "Hamburg", "22119", "Deutschland");
-        System.out.println(a);
-    }
+
 }
 
