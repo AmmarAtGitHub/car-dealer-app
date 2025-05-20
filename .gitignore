@@ -1,0 +1,24 @@
+# Maven build directory
+target/
+
+# Log files
+logs/
+*.log
+
+# Compiled class files
+*.class
+
+# Package files (JAR, WAR, etc.)
+*.jar
+*.war
+*.ear
+
+# IDE-specific files
+.idea/
+*.iml
+.iml
+.classpath
+.project
+.settings/
+
+
