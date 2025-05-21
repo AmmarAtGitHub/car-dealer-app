@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 public class Vehicle {
-    private final int id;
+    private  int id;
     private final String vin;
     private final String brand;
     private final String model;
@@ -22,10 +22,28 @@ public class Vehicle {
     private List<Photo> photos;
     private List<Document> documents;
     private VehicleStatus status; // Available, Reserved, Sold, In Repair
-    //private VehicleCondition condition; //
+    private VehicleCondition condition; // NEW, USED, CERTIFIED_PRE_OWNED, DAMAGED
     private List<Transaction> transactionHistory;
 
-    public Vehicle(int id, String vin, String brand, String model, int year,int mileage, String color, BigDecimal price) {
+
+    public Vehicle(String vin, String brand, String model, int year, int mileage, String color) {
+        this.vin = vin;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.mileage = mileage;
+        this.color = color;
+        this.status = VehicleStatus.AVAILABLE;
+        this.condition = VehicleCondition.USED;
+        this.askingPrice = null;
+
+        this.photos = new ArrayList<>();
+        this.documents = new ArrayList<>();
+        this.transactionHistory = new ArrayList<>();
+    }
+
+
+    public Vehicle(int id, String vin, String brand, String model, int year,int mileage, String color) {
         this.id = id;
         this.vin = vin;
         this.brand = brand;
@@ -33,19 +51,16 @@ public class Vehicle {
         this.year = year;
         this.mileage = mileage;
         this.color = color;
-        this.askingPrice = price;
+        this.askingPrice = null;
+        this.status = VehicleStatus.AVAILABLE;
+
         this.photos = new ArrayList<>();
         this.documents = new ArrayList<>();
         this.transactionHistory = new ArrayList<>();
-        this.status = VehicleStatus.AVAILABLE;
+        
     }
 
-    //possible improvements:
-    //Missing Critical Fields:
-
-    //VehicleStatus status (e.g., AVAILABLE, SOLD, IN_REPAIR). maybe in an enum?
-
-    //Condition condition (e.g., NEW, USED, CERTIFIED_PRE_OWNED maybe in an enum?
+  
 
     // Getters for all fields
     public int getId() { return id; }
@@ -59,8 +74,15 @@ public class Vehicle {
     public VehicleStatus getStatus() { return status; }
     // Setters only for mutable fields
     public void setColor(String color) { this.color = color; }
-    public void setAskingPrice(BigDecimal askingPrice) { this.askingPrice = askingPrice; }
     public void setMileage(int mileage) { this.mileage = mileage; }
+    public void setAskingPrice(BigDecimal askingPrice) {
+        if (askingPrice == null || askingPrice.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Asking price must be greater than 0.");
+        }
+        this.askingPrice = askingPrice;
+    }
+
+
 
     public List<Photo> getPhotos() { return photos; }
     public List<Document> getDocuments() { return documents; }
