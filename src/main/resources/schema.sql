@@ -1,0 +1,82 @@
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE vehicles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vin VARCHAR(17) NOT NULL UNIQUE,
+    brand VARCHAR(50) NOT NULL,
+    model VARCHAR(50) NOT NULL,
+    year INT NOT NULL,
+    mileage INT NOT NULL,
+    color VARCHAR(30),
+    asking_price DECIMAL(10, 2) NOT NULL,
+    status ENUM('AVAILABLE', 'RESERVED', 'SOLD', 'IN_REPAIR') NOT NULL DEFAULT 'AVAILABLE',
+     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+);
+
+CREATE TABLE documents (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    upload_date DATETIME NOT NULL,
+    document_type ENUM(
+        'REGISTRATION',
+        'INSURANCE',
+        'MAINTENANCE_RECORD',
+        'INVOICE',
+        'WARRANTY',
+        'OTHER'
+    ) NOT NULL,
+    file_size BIGINT NOT NULL,
+    vehicle_id INT NOT NULL,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
+);
+create table photos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    photo_path VARCHAR(255) NOT NULL,
+    vehicle_id INT NOT NULL,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
+);
+
+CREATE TABLE customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone VARCHAR(20) NOT NULL,
+    bank_account VARCHAR(50) ,
+    street VARCHAR(255),
+    zip_code VARCHAR(20),
+    city VARCHAR(100),
+    state VARCHAR(100)
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    admin_id INT NOT NULL,
+    transaction_type ENUM('PURCHASE', 'SALE') NOT NULL,
+    transaction_date DATETIME NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE RESTRICT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE RESTRICT,
+    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE RESTRICT
+);
+
+
+
+
+
