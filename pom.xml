@@ -40,6 +40,7 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+		
 		<!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -53,6 +54,7 @@
             <artifactId>logback-classic</artifactId>
             <version>1.4.11</version>
         </dependency>
+		
         <!-- jBCrypt for password hashing -->
         <dependency>
             <groupId>org.mindrot</groupId>
