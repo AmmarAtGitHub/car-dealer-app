@@ -63,15 +63,46 @@ public class Vehicle {
   
 
     // Getters for all fields
-    public int getId() { return id; }
-    public String getVin() { return vin; }
-    public String getBrand() { return brand; }
-    public String getModel() { return model; }
-    public int getYear() { return year; }
-    public int getMileage() { return mileage; }
-    public String getColor() { return color; }
-    public BigDecimal getAskingPrice() { return askingPrice; }
-    public VehicleStatus getStatus() { return status; }
+    // Getters for all fields
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getVin() {
+        return vin;
+    }
+    
+    public String getBrand() {
+        return brand;
+    }
+    
+    public String getModel() {
+        return model;
+    }
+    
+    public int getYear() {
+        return year;
+    }
+    
+    public int getMileage() {
+        return mileage;
+    }
+    
+    public String getColor() {
+        return color;
+    }
+    
+    public BigDecimal getAskingPrice() {
+        return askingPrice;
+    }
+    
+    public VehicleStatus getStatus() {
+        return status;
+    }
     // Setters only for mutable fields
     public void setColor(String color) { this.color = color; }
     public void setMileage(int mileage) { this.mileage = mileage; }
