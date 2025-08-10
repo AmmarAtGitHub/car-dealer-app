@@ -1,4 +1,6 @@
-CREATE TABLE admins (
+CREATE DATABASE IF NOT EXISTS vehicle_dealer;
+USE vehicle_dealer;
+CREATE TABLE IF NOT EXISTS admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
@@ -6,7 +8,7 @@ CREATE TABLE admins (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE vehicles (
+CREATE TABLE IF NOT EXISTS vehicles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     vin VARCHAR(17) NOT NULL UNIQUE,
     brand VARCHAR(50) NOT NULL,
@@ -21,7 +23,7 @@ CREATE TABLE vehicles (
 
 );
 
-CREATE TABLE documents (
+CREATE TABLE IF NOT EXISTS documents (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     file_path VARCHAR(255) NOT NULL,
@@ -38,14 +40,14 @@ CREATE TABLE documents (
     vehicle_id INT NOT NULL,
     FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
 );
-create table photos (
+create table IF NOT EXISTS photos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     photo_path VARCHAR(255) NOT NULL,
     vehicle_id INT NOT NULL,
     FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
 );
 
-CREATE TABLE customers (
+CREATE TABLE IF NOT EXISTS customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
@@ -61,7 +63,7 @@ CREATE TABLE customers (
 );
 
 
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     vehicle_id INT NOT NULL,
     customer_id INT NOT NULL,
