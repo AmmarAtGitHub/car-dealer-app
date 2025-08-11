@@ -2,8 +2,7 @@
 
 A Java desktop application for managing a car dealership system.
 
-This project uses:
-
+## 🔧 Tech Stack
 - **Java 17**
 - **JavaFX** (for GUI)
 - **MySQL** (as the database)
@@ -14,22 +13,27 @@ This project uses:
 ## 📁 Project Structure
 
 ```
-
 car-dealer-app/
 ├── src/
 │   ├── main/
-│   │   ├── java/                 # Java source files
-│   │   └── resources/            # Configuration files (e.g., db.properties)
-│   └── test/                     # Unit tests
-├── pom.xml                       # Maven configuration
-└── README.md                     # Project documentation
-
-````
+│   │   ├── java/
+│   │   │   └── com/shamseddin/
+│   │   │       ├── dao/                 # AdminDAO, VehicleDAO + JDBC impls
+│   │   │       ├── db/                  # DatabaseConnection
+│   │   │       ├── model/               # Domain models and enums
+│   │   │       └── utils/               # PasswordHasher
+│   │   └── resources/
+│   │       ├── db.properties            # JDBC URL, user, password
+│   │       └── schema.sql               # DB + tables DDL
+│   └── test/
+│       └── java/                        # JUnit tests and TestDatabase utility
+├── pom.xml                              # Maven configuration
+└── README.md                            # Project documentation
+```
 
 ---
 
 ## 🛠 Requirements
-
 - Java 17+
 - Maven
 - MySQL server
@@ -62,8 +66,15 @@ car-dealer-app/
 
 ---
 
-## 📚 To-Do (In Progress)
-* [x] Data Model Design
+## 📚 Roadmap / To-Do
+- [x] Data model design & implementation
+- [x] JDBC connection and configuration via `db.properties`
+- [x] Admin and Vehicle DAOs (JDBC)
+- [x] Database schema and basic tests
+- [ ] Service layer (business logic)
+- [ ] Additional DAOs (Customer, Documents, Photos, Transactions)
+- [ ] JavaFX UI (desktop app)
+- [ ] Integration tests and sample data seeds
 
 
 ---
