@@ -14,7 +14,7 @@ import java.util.Optional;
  * JDBC implementation of VehicleDAO.
  * Handles CRUD operations using MySQL.
  */
-public class VehicleDAOImpl implements VehicleDAO {
+public class  VehicleDAOImpl implements VehicleDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(VehicleDAOImpl.class);
     private final Connection conn;

@@ -9,6 +9,7 @@ public interface AdminDAO {
      void updateAdmin(int id, String username, String password);
      void deleteAdminById(int id);
      Optional<Admin> getAdminById(int id);
+     Optional<Admin> getAdminByUsername(String username);
      boolean authenticate(String username, String password);
     
 

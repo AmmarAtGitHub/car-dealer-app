@@ -16,9 +16,9 @@ public static boolean matches(String plainPassword, String hashedPassword){
 }
 
 public static void main(String[] args) {
-    var hashedPassword = hash("password");
+    var hashedPassword = hash("MyPassword");
     System.out.println(hashedPassword);
-    System.out.println(matches("password", hashedPassword));
+    System.out.println(matches("MyPassword", hashedPassword));
 }
 
 
