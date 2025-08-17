@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface VehicleDAO{
 
 
-    void addVehicle(Vehicle vehicle);
+    Vehicle addVehicle(Vehicle vehicle);
     void updateVehicle(Vehicle vehicle);
     void deleteVehicle(Vehicle vehicle);
     Optional<Vehicle> getVehicle(int id);

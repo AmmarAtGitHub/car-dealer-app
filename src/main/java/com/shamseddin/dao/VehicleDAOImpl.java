@@ -29,41 +29,53 @@ public class  VehicleDAOImpl implements VehicleDAO {
     }
 
 
-        @Override
-        public void addVehicle(Vehicle vehicle) {
-            String sql = "INSERT INTO vehicles (brand, model, year, vin, mileage, color ,asking_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    @Override
+    public Vehicle addVehicle(Vehicle vehicle) {
+        String sql = "INSERT INTO vehicles (brand, model, year, vin, mileage, color ,asking_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                stmt.setString(1, vehicle.getBrand());
-                stmt.setString(2, vehicle.getModel());
-                stmt.setInt(3, vehicle.getYear());
-                stmt.setString(4, vehicle.getVin());
-                stmt.setInt(5, vehicle.getMileage());
-                stmt.setString(6, vehicle.getColor());
-                stmt.setBigDecimal(7, vehicle.getAskingPrice());
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, vehicle.getBrand());
+            stmt.setString(2, vehicle.getModel());
+            stmt.setInt(3, vehicle.getYear());
+            stmt.setString(4, vehicle.getVin());
+            stmt.setInt(5, vehicle.getMileage());
+            stmt.setString(6, vehicle.getColor());
+            stmt.setBigDecimal(7, vehicle.getAskingPrice());
 
-                int rows = stmt.executeUpdate();
-                if (rows == 0) {
-                    throw new SQLException("Inserting vehicle failed, no rows affected.");
-                }
+            int affectedRows = stmt.executeUpdate();
 
-                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int generatedId = generatedKeys.getInt(1);
-                        vehicle.setId(generatedId); // <- Set back into object
-                        logger.info("Inserted vehicle with ID: {} and VIN: {}", generatedId, vehicle.getVin());
-                    } else {
-                        throw new SQLException("Inserting vehicle failed, no ID obtained.");
-                    }
-                }
-            } catch (SQLException e) {
-                logger.error("Error inserting vehicle", e);
-                throw new RuntimeException("Database error while adding vehicle", e);
+            if (affectedRows == 0) {
+                throw new SQLException("Creating vehicle failed, no rows affected.");
             }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1);
+                    // Create a new Vehicle object with the generated ID
+                    Vehicle newVehicle = new Vehicle(
+                            generatedId,
+                            vehicle.getVin(),
+                            vehicle.getBrand(),
+                            vehicle.getModel(),
+                            vehicle.getYear(),
+                            vehicle.getMileage(),
+                            vehicle.getColor()
+                    );
+                    newVehicle.setAskingPrice(vehicle.getAskingPrice());
+                    return newVehicle;
+                } else {
+                    throw new SQLException("Creating vehicle failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Error adding vehicle", e);
+            throw new RuntimeException("Failed to add vehicle", e);
         }
+    }
 
 
-        @Override
+
+    @Override
     public void updateVehicle(Vehicle vehicle) {
         String sql = "UPDATE vehicles SET brand = ?, model = ?, year = ?, vin = ? WHERE id = ?";
 
