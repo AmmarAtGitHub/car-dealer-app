@@ -71,8 +71,8 @@ car-dealer-app/
 - [x] JDBC connection and configuration via `db.properties`
 - [x] Admin and Vehicle DAOs (JDBC)
 - [x] Database schema and basic tests
-- [ ] Service layer (business logic)
-- [ ] Additional DAOs (Customer, Documents, Photos, Transactions)
+- [x] Service layer (business logic)
+- [x] Additional DAOs (Customer, Documents, Photos, Transactions)
 - [ ] JavaFX UI (desktop app)
 - [ ] Integration tests and sample data seeds
 
